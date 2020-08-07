@@ -1,0 +1,21 @@
+<h1>Topics Page</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th><h3>Topics of {{ board.name }}</h3></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for topic in topics %}
+    <tr>
+        <td>
+            <a href="">{{topic.subject}}</a><br>
+            <small style="color: #666;">By: {{ topic.starter }}</small><br>
+            <small style="color: darkviolet;">at: {{ topic.last_updated }}</small>
+        </td>
+
+    </tr>
+    {% endfor%}
+    </tbody>
+</table>

@@ -16,6 +16,9 @@ class Topic(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='topics') #  But if we don’t set a name for it, Django will generate it with the name: (class_name)_set
     starter = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='topics')
 
+    def __str__(self):
+        return self.subject
+
 class Post(models.Model):
     message = models.TextField(max_length=4000)
     topic =models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='posts')
