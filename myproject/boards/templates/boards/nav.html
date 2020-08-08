@@ -1,0 +1,13 @@
+{% load static %}
+
+<nav>
+    <hr><h1>
+        <span><a href="">Boards</a></span>
+        <span><a href="">Topics</a></span>
+        <span><a href="">Posts</a></span>
+
+        <span>Hello, {{request.user}}</span>
+        <span><a href="{% url 'boards:logout' %}">Logout</a></span>
+    </h1>
+    <hr>
+</nav>

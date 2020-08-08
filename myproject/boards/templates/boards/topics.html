@@ -1,5 +1,17 @@
 <h1>Topics Page</h1>
 
+{% extends 'boards/main.html' %}
+
+{% block content %}
+<h2>Make a topic</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+            {{field}}
+    {% endfor %}
+    <input type="submit" value="Create">
+</form>
+
 <table border="1">
     <thead>
         <tr>
@@ -19,3 +31,5 @@
     {% endfor%}
     </tbody>
 </table>
+
+{% endblock %}
