@@ -2,9 +2,9 @@
 
 <nav>
     <hr><h1>
-        <span><a href="">Boards</a></span>
-        <span><a href="">Topics</a></span>
-        <span><a href="">Posts</a></span>
+        <span><a href="{% url 'boards:home' %}">Boards</a></span>
+        <span><a href="">Your Topics</a></span>
+        <span><a href="">Your Posts</a></span>
 
         <span>Hello, {{request.user}}</span>
         <span><a href="{% url 'boards:logout' %}">Logout</a></span>

@@ -34,12 +34,15 @@ def home(request):
 
 def topicsPage(request, pk):
     board = Board.objects.get(id=pk)
-    form = TopicForm(initial={'board': board, 'starter': request.user})
+    # form = TopicForm(initial={'board': board, 'starter': request.user})
+    form = TopicForm()
     if request.method == 'POST':
-        print(request.POST)
         form = TopicForm(request.POST)
         if form.is_valid():
-            form.save()
+            topic = form.save(commit=False)
+            topic.board = board
+            topic.starter = request.user
+            topic.save()
         else:
             print(form._errors)
 

@@ -7,5 +7,6 @@ from .models import Topic
 class TopicForm(ModelForm):
     class Meta:
         model = Topic
-        fields = '__all__'
+        fields = ['subject']
+        # fields = '__all__'
         # exclude = ['starter']
