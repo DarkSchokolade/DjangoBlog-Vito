@@ -1,17 +1,14 @@
-{% extends 'boards/main.html' %}
-
-{% block content%}
-<h1>Login Page</h1>
-
+<h1>Login to Write on the Board</h1>
+<hr>
 <form action="" method="POST">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username...">
     <input type="password" name="password" id="password" placeholder="Password...">
     <input type="submit" value="Login">
 </form>
+<br>
+<p>If you don't have an account <strong><a href="{% url 'boards:register' %}">Register</a></strong></p>
 
 {% for msg in messages %}
 <p>{{msg}}</p>
 {% endfor %}
-
-{% endblock content %}

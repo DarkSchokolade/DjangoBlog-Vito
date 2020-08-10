@@ -4,10 +4,23 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.forms import inlineformset_factory
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from .models import *
-from .forms import TopicForm
+from .forms import TopicForm, UserCreationForm
+
+def registerPage(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request,'Account Created as: ' + user)
+            return redirect('boards:login')
+    context = {'form': form}
+    return render(request, 'boards/register.html', context)
 
 def loginPage(request):
     if request.method == 'POST':
@@ -26,12 +39,14 @@ def logoutUser(request):
     logout(request)
     return redirect('boards:login')
 
+@login_required(login_url='boards:login')
 def home(request):
     boards_list = Board.objects.all()
     context = {'boards_list': boards_list}
     return render(request, 'boards/index.html', context)
     # return HttpResponse("this is the home page of BOARDS")
 
+@login_required(login_url='boards:login')
 def topicsPage(request, pk):
     board = Board.objects.get(id=pk)
     # form = TopicForm(initial={'board': board, 'starter': request.user})
