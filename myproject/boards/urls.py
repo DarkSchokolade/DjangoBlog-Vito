@@ -10,4 +10,5 @@ urlpatterns = [
     
     path('', views.home, name='home'),
     path('topics/<str:pk>', views.topicsPage, name='topics'),
+    path('posts/<str:pk>', views.allPosts, name='posts')
 ]

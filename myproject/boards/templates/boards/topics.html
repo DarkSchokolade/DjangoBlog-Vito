@@ -20,7 +20,7 @@
     {% for topic in topics %}
     <tr>
         <td>
-            <a href="">{{topic.subject}}</a><br>
+            <a href="{% url 'boards:posts' topic.id %}">{{topic.subject}}</a><br>
             <small style="color: #666;">By: {{ topic.starter }}</small><br>
             <small style="color: darkviolet;">at: {{ topic.last_updated }}</small>
         </td>

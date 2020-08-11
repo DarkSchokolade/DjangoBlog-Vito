@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 # Create your views here.
 from .models import *
@@ -44,7 +45,6 @@ def home(request):
     boards_list = Board.objects.all()
     context = {'boards_list': boards_list}
     return render(request, 'boards/index.html', context)
-    # return HttpResponse("this is the home page of BOARDS")
 
 @login_required(login_url='boards:login')
 def topicsPage(request, pk):
@@ -65,3 +65,11 @@ def topicsPage(request, pk):
     topics = board.topics.all()
     context = {'board': board, 'topics': topics, 'form': form}
     return render(request, 'boards/topics.html', context)
+
+@login_required(login_url='boards:login')
+def allPosts(request, pk):
+    topic = get_object_or_404(Topic, pk=pk)
+
+    posts = topic.posts.all()
+    context = {'topic': topic, 'posts': posts}
+    return render(request, 'boards/posts.html', context)
