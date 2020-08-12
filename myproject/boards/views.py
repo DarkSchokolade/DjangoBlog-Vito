@@ -9,7 +9,7 @@ from django.db.models import Count
 
 # Create your views here.
 from .models import *
-from .forms import TopicForm, UserCreationForm
+from .forms import *
 
 def registerPage(request):
     form = UserCreationForm()
@@ -69,7 +69,15 @@ def topicsPage(request, pk):
 @login_required(login_url='boards:login')
 def allPosts(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.topic = topic
+            post.created_by = request.user
+            post.save()
 
     posts = topic.posts.all()
-    context = {'topic': topic, 'posts': posts}
+    context = {'topic': topic, 'posts': posts, 'form': form}
     return render(request, 'boards/posts.html', context)

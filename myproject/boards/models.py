@@ -26,3 +26,6 @@ class Post(models.Model):
     updated_at = models.DateTimeField(null=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='posts')
     updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+')   # This instructs Django that we don’t need this reverse relationship, so it will ignore it.
+
+    def __str__(self):
+        return self.message
